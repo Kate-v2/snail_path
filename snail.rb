@@ -7,20 +7,14 @@ class Snail
     @shape   = shape
     @partial = nil
     @path    = []
-    @shift   = 0
-  end
-
-  def pop_row
-    @partial = @shape.pop
   end
 
   def shift_row
     @partial = @shape.shift
-    @shift += 1
   end
 
-  def trans
-    @shape = @shape.transpose
+  def rotate_shape
+    @shape = @shape.transpose.reverse
   end
 
   def combine
@@ -30,17 +24,11 @@ class Snail
 
   def determine_path
     return @path if @shape.empty?
-    # binding.pry
-    # pop_row
-    @shift > 0 ? pop_row : shift_row
+    shift_row
     combine
-    trans
+    rotate_shape
     determine_path
   end
-
-
-
-
 
 
 end
